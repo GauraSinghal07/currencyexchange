@@ -10,7 +10,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
@@ -28,7 +31,7 @@ public class CurrencyService {
     }
 
 
-    public Map<String, Object> calculateTotal(Bill bill) {
+    public Map<String, Object> calculateTotalPayable(Bill bill) {
         log.info("Calculating total for bill: {}", bill);
         double total = calculateTotalAmount(bill);
         log.debug("Calculated total amount: {}", total);
@@ -47,11 +50,13 @@ public class CurrencyService {
         billRepository.save(bill);
         log.info("Saved bill to the database: {}", bill);
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("total", total);
-        response.put("discount", discount);
-        response.put("finalAmount", finalAmount);
-        response.put("convertedAmount", convertedAmount);
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("Total Cost", total);
+        response.put("Applicable discount", discount);
+        response.put("Amount after discount", finalAmount);
+        BigDecimal bd = new BigDecimal(convertedAmount);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        response.put("Final Amount in "+bill.getTargetCurrency(), bd.doubleValue());
         return response;
     }
 
@@ -70,13 +75,9 @@ public class CurrencyService {
                 .mapToDouble(Item::getPrice)
                 .sum();
 
-        // Check if there are not grocery items
-        boolean nonGroceryItems = billRequest.getItems().stream()
-                .anyMatch(item -> !"groceries".equalsIgnoreCase(item.getCategory()));
-
         // Calculate percentage discount based on user type and tenure
         double percentageDiscount = 0;
-        if (nonGroceryItems) {
+        if (nonGroceryTotal > 0) {  // Check if there are non-grocery items
             if ("employee".equalsIgnoreCase(billRequest.getUserType())) {
                 percentageDiscount = 0.30; // 30% discount
             } else if ("affiliate".equalsIgnoreCase(billRequest.getUserType())) {
@@ -90,12 +91,14 @@ public class CurrencyService {
         discount += nonGroceryTotal * percentageDiscount;
         log.debug("Discount after percentage calculation: {}", discount);
 
-        // Apply the $5 discount for every $100 in non-grocery items
-        discount += Math.floor(total / 100) * 5;
+        // Apply the $5 discount for every $100 in total
+        int flatDiscount = (int) ((total - discount) / 100);
+        discount += flatDiscount * 5;
         log.debug("Final discount after applying $5 per $100: {}", discount);
 
-        return discount;
+        return discount; // Return the total discount
     }
+
 
     @Cacheable(value = "exchangeRates", key = "#baseCurrency + '_' + #targetCurrency")
     public double getExchangeRate(String baseCurrency, String targetCurrency) {

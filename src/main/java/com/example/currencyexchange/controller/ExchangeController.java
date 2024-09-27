@@ -23,7 +23,7 @@ public class ExchangeController {
     @PostMapping("/calculate")
     public ResponseEntity<Map<String, Object>> calculatePayable(@RequestBody Bill bill) {
         log.info("Calculating payable for bill: {}", bill);
-        Map<String, Object> response = currencyService.calculateTotal(bill);
+        Map<String, Object> response = currencyService.calculateTotalPayable(bill);
         log.info("Calculated payable response: {}", response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

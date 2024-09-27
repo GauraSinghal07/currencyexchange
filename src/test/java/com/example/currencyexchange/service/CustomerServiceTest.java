@@ -57,12 +57,12 @@ class CurrencyServiceTest {
                 .thenReturn(currencyResponse);
 
         // When calculating the total
-        Map<String, Object> result = currencyService.calculateTotal(bill);
+        Map<String, Object> result = currencyService.calculateTotalPayable(bill);
 
         // Then
-        assertEquals(250.0, result.get("total"));
-        assertEquals(70.0, result.get("discount")); // $5 discount for every $100
-        assertEquals(180.0, result.get("finalAmount")); // Total - Discount
+        assertEquals(250.0, result.get("Total Cost"));
+        assertEquals(65.0, result.get("Applicable discount")); // $5 discount for every $100
+        assertEquals(157.25, result.get("Final Amount in EUR")); // Total - Discount
 
         // Verify that the bill was saved
         verify(billRepository).save(bill);
