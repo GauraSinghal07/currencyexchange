@@ -33,29 +33,91 @@ There are several ways to run a Spring Boot application on your local machine.
 - execute the main method in the CurrencyExchangeAndDiscountCalculationApplication class from your IDE.
 - Right click on Project
 - Select Run As
-- Select Java Application (JRE - Java 21)
+- Select Java Application (JRE - Java 17)
 - Select Main Class CurrencyExchangeAndDiscountCalculationApplication and click on Run.
 - Run through command line
 - GO to the directory of project where pom.xml exists in windows
 - mvn clean install
 - mvn spring-boot:run
-- Run as executable Runnable JAR 1. Cmd 2. Go to path where currency_exchange_and_discount_calculation-0.0.1-SNAPSHOT.jar file present 3. You can run the application from the command line using: java -jar currency_exchange_and_discount_calculation-0.0.1-SNAPSHOT.jar
+- Run as executable Runnable JAR 1. Cmd 2. Go to path where currency-exchange-discount-calculator-0.0.1-SNAPSHOT.jar file present 3. You can run the application from the command line using: java -jar currency-exchange-discount-calculator-0.0.1-SNAPSHOT.jar
+
+## UML diagram
+
++---------------------------+
+|           Bill            |
++---------------------------+
+| - id: Long                |
+| - items: List<Item>       |
+| - userType: String        |
+| - customerTenure: int     |
+| - originalCurrency: String |
+| - targetCurrency: String   |
++---------------------------+
+| + Bill()                  |
+| + getId(): Long           |
+| + getItems(): List<Item>  |
+| + getUserType(): String   |
+| + getCustomerTenure(): int |
+| + getOriginalCurrency(): String |
+| + getTargetCurrency(): String |
+| + setId(Long): void       |
+| + setItems(List<Item>): void |
+| + setUserType(String): void|
+| + setCustomerTenure(int): void |
+| + setOriginalCurrency(String): void |
+| + setTargetCurrency(String): void |
++---------------------------+
+          |
+          | 1..*
+          |
++---------------------------+
+|           Item            |
++---------------------------+
+| - id: Long                |
+| - name: String            |
+| - category: String        |
+| - price: double           |
++---------------------------+
+| + Item()                  |
+| + Item(id: Long, name: String, category: String, price: double) |
+| + getId(): Long           |
+| + getName(): String       |
+| + getCategory(): String    |
+| + getPrice(): double      |
+| + setId(Long): void       |
+| + setName(String): void    |
+| + setCategory(String): void |
+| + setPrice(double): void   |
++---------------------------+
+
++---------------------------+
+|       ExchangeRate        |
++---------------------------+
+| - baseCurrency: String    |
+| - rates: Map<String, Double> |
++---------------------------+
+| + ExchangeRate()          |
+| + getBaseCurrency(): String |
+| + getRates(): Map<String, Double> |
+| + setBaseCurrency(String): void |
+| + setRates(Map<String, Double>): void |
++---------------------------+
 
 ## Test from postman
 
 curl --location 'http://localhost:8090/api/calculate' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic dXNlcjpwYXNzd29yZA==' \
---header 'Cookie: JSESSIONID=6CF7B4AF34D77E2C4A7EB23FD0827422' \
+--header 'Cookie: JSESSIONID=6CF7B4AF34D77E2C4A7EB23FD0827422; JSESSIONID=6CF7B4AF34D77E2C4A7EB23FD0827422' \
 --data '{
 "items": [
-{"name": "Apple", "category": "groceries", "price": 60},
-{"name": "Laptop", "category": "electronics", "price": 40}
+{"name": "Apple", "category": "groceries", "price": 50},
+{"name": "Laptop", "category": "electronics", "price": 100}
 ],
-"userType": "customer",
+"userType": "affiliate",
 "customerTenure": 3,
 "originalCurrency": "USD",
-"targetCurrency": "AFN"
+"targetCurrency": "ANG"
 }
 '
 
@@ -63,31 +125,64 @@ curl --location 'http://localhost:8090/api/calculate' \
 To demonstrate the functionality of the application, consider the following example:
 
 # Input Details
+- Example 1
 - Items Purchased:
-Apple (Groceries): $60
-Laptop (Electronics): $40
+Apple (Groceries): $20
+Laptop (Electronics): $80
 User Type: Customer
 Customer Tenure: 3 years
 Original Currency: USD
-Target Currency: AFN
+Target Currency: ANG
 Discount Calculation Steps
 Total Before Discounts:
 
-Total = $60 (Apple) + $40 (Laptop) = $100
+Total = $20 (Apple) + $80 (Laptop) = $100
+
 - Discounts:
 
 Eligible for a 5% discount on the Laptop due to customer tenure.
-Discount on Laptop: 5% of $40 = $2
-Discounted Price of Laptop = $40 - $2 = $38
-Final Total = $60 (Apple) + $38 (Discounted Laptop) = $98
+Discount on Laptop: 5% of $80 = $4
+Discounted Price of Laptop = $80 - $4 = $76
+Final Total = $20 (Apple) + $76 (Discounted Laptop) = $96
+
 - Currency Conversion:
 
-Assuming an exchange rate of 1 USD = 90 AFN:
-Final Amount in AFN = $98 * 90 = 8820 AFN
-Expected Output
-When the above details are submitted through the API endpoint, the response will include:
+Assuming an exchange rate of 1 USD = 1.79 ANG:
+Final Amount in ANG = $98 * 1.79 = 175.42 ANG
 
-Final Amount in AFN: 8820 AFN
+When the above details are submitted through the API endpoint, the response will include:
+CovertedAmount: 175.42 ANG
+
+
+- Example 1
+- Items Purchased:
+Apple (Groceries): $50
+Laptop (Electronics): $100
+User Type: Affiliate
+Original Currency: USD
+Target Currency: ANG
+Discount Calculation Steps
+Total Before Discounts:
+
+Total = $50 (Apple) + $100 (Laptop) = $150
+
+- Discounts:
+
+Eligible for a 10% discount on the Laptop as user type is Affiliate.
+Discount on Laptop: 10% of $100 = $10
+Discounted Price of Laptop = $100 - $10 = $90
+Discounted Total = $50 (Apple) + $90 (Discounted Laptop) = $140
+
+Since Discounted Total is greater than 100, so user is eligible for $5 discount.
+Final Total =  $140 - $5 = $135
+
+- Currency Conversion:
+
+Assuming an exchange rate of 1 USD = 1.79 ANG:
+Final Amount in ANG = $135 * 1.79 = 241.65 ANG
+
+When the above details are submitted through the API endpoint, the response will include:
+CovertedAmount: 241.65 ANG
 
 ## Setup Instructions
 
