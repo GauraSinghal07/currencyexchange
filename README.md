@@ -112,7 +112,7 @@ curl --location 'http://localhost:8090/api/calculate' \
 To demonstrate the functionality of the application, consider the following example:
 
 # Input Details
-- Example 1
+# Example 1
 - Items Purchased:
 Apple (Groceries): $20
 Laptop (Electronics): $80
@@ -135,13 +135,13 @@ Final Total = $20 (Apple) + $76 (Discounted Laptop) = $96
 - Currency Conversion:
 
 Assuming an exchange rate of 1 USD = 1.79 ANG:
-Final Amount in ANG = $98 * 1.79 = 175.42 ANG
+Final Amount in ANG = $96 * 1.79 = 171.84 ANG
 
 When the above details are submitted through the API endpoint, the response will include:
-CovertedAmount: 175.42 ANG
+Final Amount in ANG: 171.84 ANG
 
 
-- Example 1
+ # Example 2
 - Items Purchased:
 Apple (Groceries): $50
 Laptop (Electronics): $100
@@ -169,7 +169,7 @@ Assuming an exchange rate of 1 USD = 1.79 ANG:
 Final Amount in ANG = $135 * 1.79 = 241.65 ANG
 
 When the above details are submitted through the API endpoint, the response will include:
-CovertedAmount: 241.65 ANG
+Final Amount in ANG: 241.65 ANG
 
 ## Setup Instructions
 
