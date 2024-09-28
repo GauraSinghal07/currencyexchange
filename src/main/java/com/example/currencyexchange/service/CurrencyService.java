@@ -23,11 +23,13 @@ public class CurrencyService {
     private static final String API_URL = "https://open.er-api.com/v6/latest/USD";
     private final BillRepository billRepository;
     private final RestTemplate restTemplate;
-
+    private final UserTypeService userTypeService;
     @Autowired
-    public CurrencyService(BillRepository billRepository, RestTemplate restTemplate) {
+    public CurrencyService(BillRepository billRepository, RestTemplate restTemplate,
+                           UserTypeService userTypeService) {
         this.billRepository = billRepository;
         this.restTemplate = restTemplate;
+        this.userTypeService = userTypeService;
     }
 
 
@@ -35,7 +37,7 @@ public class CurrencyService {
         log.info("Calculating total for bill: {}", bill);
         double total = calculateTotalAmount(bill);
         log.debug("Calculated total amount: {}", total);
-
+        bill.setUserType(userTypeService.getUserTypeById(bill.getUserId()));
         double discount = calculateDiscount(bill, total);
         log.debug("Calculated discount: {}", discount);
 

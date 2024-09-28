@@ -26,6 +26,9 @@ class CurrencyServiceTest {
     @Mock
     private RestTemplate restTemplate;
 
+    @Mock
+    private UserTypeService userTypeService; // Mock UserTypeService
+
     @InjectMocks
     private CurrencyService currencyService;
 
@@ -42,10 +45,13 @@ class CurrencyServiceTest {
                 new Item(1L, "item1", "electronics", 200),
                 new Item(2L, "item2", "groceries", 50)
         ));
-        bill.setUserType("employee");
+        bill.setUserId(1L); // Set user ID for lookup
         bill.setCustomerTenure(3);
         bill.setOriginalCurrency("USD");
         bill.setTargetCurrency("EUR");
+
+        // Mock UserTypeService behavior
+        when(userTypeService.getUserTypeById(bill.getUserId())).thenReturn("employee");
 
         CurrencyResponse currencyResponse = new CurrencyResponse();
         Map<String, Double> rates = new HashMap<>();

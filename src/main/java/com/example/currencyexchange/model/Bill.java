@@ -16,8 +16,8 @@ public class Bill {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "bill_id")
     private List<Item> items;
-
-    private String userType; // "employee", "affiliate", or "customer"
+    private String userType;// "employee", "affiliate", or "customer"
+    private Long userId;
     private int customerTenure; // in years
     private String originalCurrency;
     private String targetCurrency;
