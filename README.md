@@ -90,19 +90,6 @@ There are several ways to run a Spring Boot application on your local machine.
 | + setPrice(double): void   |
 +---------------------------+
 
-+---------------------------+
-|       ExchangeRate        |
-+---------------------------+
-| - baseCurrency: String    |
-| - rates: Map<String, Double> |
-+---------------------------+
-| + ExchangeRate()          |
-| + getBaseCurrency(): String |
-| + getRates(): Map<String, Double> |
-| + setBaseCurrency(String): void |
-| + setRates(Map<String, Double>): void |
-+---------------------------+
-
 ## Test from postman
 
 curl --location 'http://localhost:8090/api/calculate' \
@@ -188,5 +175,5 @@ CovertedAmount: 241.65 ANG
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/currency-exchange-app.git
-   cd currency-exchange-app
+   git clone https://github.com/GauraSinghal07/currencyexchange.git
+   cd currencyexchange
