@@ -32,6 +32,7 @@ This Spring Boot application integrates with a third-party currency exchange API
 
 
 2. **Running the application locally Successfully**
+
 There are several ways to run a Spring Boot application on your local machine.
 
 - execute the main method in the CurrencyExchangeAndDiscountCalculationApplication class from your IDE.
