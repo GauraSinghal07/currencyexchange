@@ -73,7 +73,7 @@ curl --location 'http://localhost:8090/api/calculate' \
 ## Use Case Example
 To demonstrate the functionality of the application, consider the following example:
 
-## Input Details
+### Input Details
 ## Example 1
 - Items Purchased:
 Apple (Groceries): $20
