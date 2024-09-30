@@ -74,7 +74,7 @@ curl --location 'http://localhost:8090/api/calculate' \
 To demonstrate the functionality of the application, consider the following example:
 
 ### Input Details
-## Example 1
+### Example 1
 - Items Purchased:
 Apple (Groceries): $20
 Laptop (Electronics): $80
@@ -103,7 +103,7 @@ When the above details are submitted through the API endpoint, the response will
 Final Amount in ANG: 171.84 ANG
 
 
- ## Example 2
+ ### Example 2
 - Items Purchased:
 Apple (Groceries): $50
 Laptop (Electronics): $100
