@@ -43,6 +43,9 @@ There are several ways to run a Spring Boot application on your local machine.
 
 ## UML diagram
 
+![UML](https://github.com/user-attachments/assets/2a1dc7f2-89eb-40b8-afa5-d9c9bcc3a4a0)
+
+
 +---------------------------+
 |           Bill            |
 +---------------------------+
