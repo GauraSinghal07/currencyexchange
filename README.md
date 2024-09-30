@@ -53,23 +53,6 @@ There are several ways to run a Spring Boot application on your local machine.
 - Expose an API endpoint (/api/calculate) to accept bill details including items, their categories, total amount, user id, customer tenure, original currency, and target currency. 
 - The endpoint should return the net payable amount in the specified target currency after applying applicable discounts and currency conversion.
 
-## Test from postman
-
-curl --location 'http://localhost:8090/api/calculate' \
---header 'Content-Type: application/json' \
---header 'Authorization: Basic dXNlcjpwYXNzd29yZA==' \
---header 'Cookie: JSESSIONID=6CF7B4AF34D77E2C4A7EB23FD0827422; JSESSIONID=6CF7B4AF34D77E2C4A7EB23FD0827422' \
---data '{
-"items": [
-{"name": "Apple", "category": "groceries", "price": 50},
-{"name": "Laptop", "category": "electronics", "price": 100}
-],
-"userType": "affiliate",
-"customerTenure": 3,
-"originalCurrency": "USD",
-"targetCurrency": "ANG"
-}
-'
 
 ## Use Case Example
 To demonstrate the functionality of the application, consider the following example:
@@ -133,5 +116,23 @@ Final Amount in ANG = $135 * 1.79 = 241.65 ANG
 
 When the above details are submitted through the API endpoint, the response will include:
 Final Amount in ANG: 241.65 ANG
+
+## Test from postman
+
+curl --location 'http://localhost:8090/api/calculate' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic dXNlcjpwYXNzd29yZA==' \
+--header 'Cookie: JSESSIONID=6CF7B4AF34D77E2C4A7EB23FD0827422; JSESSIONID=6CF7B4AF34D77E2C4A7EB23FD0827422' \
+--data '{
+"items": [
+{"name": "Apple", "category": "groceries", "price": 50},
+{"name": "Laptop", "category": "electronics", "price": 100}
+],
+"userId": 2,
+"customerTenure": 3,
+"originalCurrency": "USD",
+"targetCurrency": "ANG"
+}
+'
 
 
