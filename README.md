@@ -23,6 +23,13 @@ This Spring Boot application integrates with a third-party currency exchange API
 - Maven
 - An API key from [Open Exchange Rates](https://openexchangerates.org/)
 
+## Setup Instructions
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/GauraSinghal07/currencyexchange.git
+   cd currencyexchange
+   
 ## To Test below use cases:
 - Expose an API endpoint (/api/calculate) to accept bill details including items, their categories, total amount, user type, customer tenure, original currency, and target currency. 
 - The endpoint should return the net payable amount in the specified target currency after applying applicable discounts and currency conversion.
@@ -45,54 +52,6 @@ There are several ways to run a Spring Boot application on your local machine.
 
 ![UML](https://github.com/user-attachments/assets/2a1dc7f2-89eb-40b8-afa5-d9c9bcc3a4a0)
 
-
-+---------------------------+
-|           Bill            |
-+---------------------------+
-| - id: Long                |
-| - items: List<Item>       |
-| - userType: String        |
-| - customerTenure: int     |
-| - originalCurrency: String |
-| - targetCurrency: String   |
-+---------------------------+
-| + Bill()                  |
-| + getId(): Long           |
-| + getItems(): List<Item>  |
-| + getUserType(): String   |
-| + getCustomerTenure(): int |
-| + getOriginalCurrency(): String |
-| + getTargetCurrency(): String |
-| + setId(Long): void       |
-| + setItems(List<Item>): void |
-| + setUserType(String): void|
-| + setCustomerTenure(int): void |
-| + setOriginalCurrency(String): void |
-| + setTargetCurrency(String): void |
-+---------------------------+
-          |
-          | 1..*
-          |
-+---------------------------+
-|           Item            |
-+---------------------------+
-| - id: Long                |
-| - name: String            |
-| - category: String        |
-| - price: double           |
-+---------------------------+
-| + Item()                  |
-| + Item(id: Long, name: String, category: String, price: double) |
-| + getId(): Long           |
-| + getName(): String       |
-| + getCategory(): String    |
-| + getPrice(): double      |
-| + setId(Long): void       |
-| + setName(String): void    |
-| + setCategory(String): void |
-| + setPrice(double): void   |
-+---------------------------+
-
 ## Test from postman
 
 curl --location 'http://localhost:8090/api/calculate' \
@@ -114,8 +73,8 @@ curl --location 'http://localhost:8090/api/calculate' \
 ## Use Case Example
 To demonstrate the functionality of the application, consider the following example:
 
-# Input Details
-# Example 1
+## Input Details
+## Example 1
 - Items Purchased:
 Apple (Groceries): $20
 Laptop (Electronics): $80
@@ -144,7 +103,7 @@ When the above details are submitted through the API endpoint, the response will
 Final Amount in ANG: 171.84 ANG
 
 
- # Example 2
+ ## Example 2
 - Items Purchased:
 Apple (Groceries): $50
 Laptop (Electronics): $100
@@ -174,9 +133,4 @@ Final Amount in ANG = $135 * 1.79 = 241.65 ANG
 When the above details are submitted through the API endpoint, the response will include:
 Final Amount in ANG: 241.65 ANG
 
-## Setup Instructions
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/GauraSinghal07/currencyexchange.git
-   cd currencyexchange
