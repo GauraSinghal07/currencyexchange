@@ -29,10 +29,7 @@ This Spring Boot application integrates with a third-party currency exchange API
    ```bash
    git clone https://github.com/GauraSinghal07/currencyexchange.git
    cd currencyexchange
-   
-## To Test below use cases:
-- Expose an API endpoint (/api/calculate) to accept bill details including items, their categories, total amount, user type, customer tenure, original currency, and target currency. 
-- The endpoint should return the net payable amount in the specified target currency after applying applicable discounts and currency conversion.
+
 
 ## Running the application locally Successfully
 There are several ways to run a Spring Boot application on your local machine.
@@ -51,6 +48,10 @@ There are several ways to run a Spring Boot application on your local machine.
 ## UML diagram
 
 ![UML](https://github.com/user-attachments/assets/2a1dc7f2-89eb-40b8-afa5-d9c9bcc3a4a0)
+
+## To Test below use cases:
+- Expose an API endpoint (/api/calculate) to accept bill details including items, their categories, total amount, user id, customer tenure, original currency, and target currency. 
+- The endpoint should return the net payable amount in the specified target currency after applying applicable discounts and currency conversion.
 
 ## Test from postman
 
