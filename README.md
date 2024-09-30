@@ -46,6 +46,11 @@ There are several ways to run a Spring Boot application on your local machine.
 - mvn spring-boot:run
 - Run as executable Runnable JAR 1. Cmd 2. Go to path where currency-exchange-discount-calculator-0.0.1-SNAPSHOT.jar file present 3. You can run the application from the command line using: java -jar currency-exchange-discount-calculator-0.0.1-SNAPSHOT.jar
 
+3. **To Run Application Junit Test cases**
+- Navigate to src/test/java under the project in your IDE and right click on subfolder com.example.currencyexchange
+- Select `Run Tests` in 'curreny exchange' option
+- Results will be stored in target/surefire-reports/TEST-com.exchangerate.CurrencyExchangeDiscountCalculatorApplicationTests.xml file
+
 ## UML diagram
 
 ![UML](https://github.com/user-attachments/assets/2a1dc7f2-89eb-40b8-afa5-d9c9bcc3a4a0)
