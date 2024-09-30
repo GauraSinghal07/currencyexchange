@@ -48,7 +48,7 @@ There are several ways to run a Spring Boot application on your local machine.
 
 3. **To Run Application Junit Test cases**
 - Navigate to src/test/java under the project in your IDE and right click on subfolder com.example.currencyexchange
-- Select `Run Tests` in 'curreny exchange' option
+- Select Run 'Tests in 'currenyexchange'' option
 - Results will be stored in target/surefire-reports/TEST-com.exchangerate.CurrencyExchangeDiscountCalculatorApplicationTests.xml file
 
 ## UML diagram
